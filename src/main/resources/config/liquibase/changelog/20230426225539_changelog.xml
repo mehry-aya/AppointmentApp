@@ -1,0 +1,147 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Ayame (generated)" id="1682549752186-1">
+        <createTable tableName="appointment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="appointmentPK"/>
+            </column>
+            <column name="end_time" type="datetime(6)"/>
+            <column name="start_time" type="datetime(6)"/>
+            <column name="status" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="service_provider_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-2">
+        <createTable tableName="appointment_customer">
+            <column name="appointment_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-3">
+        <createTable tableName="authority">
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-4">
+        <createTable tableName="availability">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="availabilityPK"/>
+            </column>
+            <column name="available" type="BIT"/>
+            <column name="end_time" type="datetime(6)"/>
+            <column name="start_time" type="datetime(6)"/>
+            <column name="service_provider_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-5">
+        <createTable tableName="service">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="servicePK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="place" type="VARCHAR(255)"/>
+            <column name="price" type="DOUBLE PRECISION"/>
+            <column name="service_provider_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-6">
+        <createTable tableName="user">
+            <column name="dtype" type="VARCHAR(31)">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="userPK"/>
+            </column>
+            <column name="created_by" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="datetime(6)"/>
+            <column name="last_modified_by" type="VARCHAR(50)"/>
+            <column name="last_modified_date" type="datetime(6)"/>
+            <column name="activated" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="activation_key" type="VARCHAR(20)"/>
+            <column name="email" type="VARCHAR(254)"/>
+            <column name="first_name" type="VARCHAR(50)"/>
+            <column name="image_url" type="VARCHAR(256)"/>
+            <column name="lang_key" type="VARCHAR(10)"/>
+            <column name="last_name" type="VARCHAR(50)"/>
+            <column name="login" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reset_date" type="datetime(6)"/>
+            <column name="reset_key" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-7">
+        <createTable tableName="user_authority">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_authorityPK"/>
+            </column>
+            <column name="authority_name" type="VARCHAR(50)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_authorityPK"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-8">
+        <addUniqueConstraint columnNames="email" constraintName="UC_USEREMAIL_COL" tableName="user"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-9">
+        <addUniqueConstraint columnNames="login" constraintName="UC_USERLOGIN_COL" tableName="user"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-10">
+        <addForeignKeyConstraint baseColumnNames="service_provider_id" baseTableName="availability" constraintName="FK3lv9mqjp3qpl80dmi5jdbkl7q" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-11">
+        <addForeignKeyConstraint baseColumnNames="authority_name" baseTableName="user_authority" constraintName="FK6ktglpl5mjosa283rvken2py5" deferrable="false" initiallyDeferred="false" referencedColumnNames="name" referencedTableName="authority" validate="true"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-12">
+        <addForeignKeyConstraint baseColumnNames="service_provider_id" baseTableName="appointment" constraintName="FKc2khwhibilgyqjar3iuq51xin" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-13">
+        <addForeignKeyConstraint baseColumnNames="appointment_id" baseTableName="appointment_customer" constraintName="FKeoud7s7naojkr59xtxe7q9ksa" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="appointment" validate="true"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-14">
+        <addForeignKeyConstraint baseColumnNames="service_provider_id" baseTableName="service" constraintName="FKf3m37hs7u6259nyd8r0sfg14u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-15">
+        <addForeignKeyConstraint baseColumnNames="customer_id" baseTableName="appointment_customer" constraintName="FKnmo388sew088fy247pa5326ai" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-16">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_authority" constraintName="FKpqlsjpkybgos9w2svcri7j8xy" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-17">
+        <dropForeignKeyConstraint baseTableName="jhi_user_authority" constraintName="fk_authority_name"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-18">
+        <dropForeignKeyConstraint baseTableName="jhi_user_authority" constraintName="fk_user_id"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-19">
+        <dropUniqueConstraint constraintName="ux_user_email" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-20">
+        <dropUniqueConstraint constraintName="ux_user_login" tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-21">
+        <dropTable tableName="jhi_authority"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-22">
+        <dropTable tableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Ayame (generated)" id="1682549752186-23">
+        <dropTable tableName="jhi_user_authority"/>
+    </changeSet>
+</databaseChangeLog>
