@@ -1,11 +1,12 @@
 package com.pfe.myappointmentapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "service")
-public class Service implements Serializable {
+@Table(name = "services")
+public class Services implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +19,12 @@ public class Service implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "service_provider_id")
+    @JsonBackReference
     private ServiceProvider serviceProvider;
 
-    public Service() {}
+    public Services() {}
 
-    public Service(Long id, String name, String description, Double price, String place, ServiceProvider serviceProvider) {
+    public Services(Long id, String name, String description, Double price, String place, ServiceProvider serviceProvider) {
         this.id = id;
         this.name = name;
         this.description = description;

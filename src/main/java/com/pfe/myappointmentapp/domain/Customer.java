@@ -2,10 +2,16 @@ package com.pfe.myappointmentapp.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "customer")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@PrimaryKeyJoinColumn(name = "id")
 public class Customer extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
